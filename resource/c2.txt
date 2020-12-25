@@ -1,0 +1,4 @@
+It's worth noting that \n is not EOF. When we enter \n in the terminal, the program will push the buffer (including \n itself) to the while loop including getchar().
+Then getchar() will read every character till the buffer is empty, and getchar() will block on it.
+Although the behaviors of this 'echo' program like it's processing strings, it can only recognize characters one by one.
+

@@ -1,0 +1,3 @@
+C provides getchar() and putchar() as the user input/output interface.
+Comparing with InputStream and OutputStream in Java, input and output methods in C do not specify the source, destination and whether use buffer explicitly.
+getchar() and putchar() implicitly set console as input source and output destination, and enable buffer.
