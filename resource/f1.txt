@@ -1,0 +1,1 @@
+We can define a union with many members, but only one member can contain a value at any given time.
