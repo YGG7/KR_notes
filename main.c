@@ -2,9 +2,9 @@
 #include <string.h>
 #include <ctype.h>
 #include <unistd.h>
-#include "CFeatures/TestGetsPuts.c"
+#include "CFeatures/TestOpen.c"
 
 int main(int argc, char *argv[]) {
-    testGetsPuts();
+    testOpen();
     return 0;
 }

@@ -26,8 +26,7 @@ typedef struct HashTable {
 } HashTable;
 
 // hash function djb2 by Dan Bernstein
-static unsigned long hash(unsigned char *str)
-{
+static unsigned long hash(unsigned char *str) {
     unsigned long hash = 5381;
     int c;
     while ((c = *str++))
@@ -38,7 +37,7 @@ static unsigned long hash(unsigned char *str)
 // free a list of Nodes recursively
 // may lead to recursion too deep
 static void freeNodeList(Node *head_np) {
-    if (head_np==NULL) return;
+    if (head_np == NULL) return;
     freeNodeList(head_np->next);
     free(head_np);
 }
@@ -48,23 +47,23 @@ HashTable *createHashTable() {
     if (!hashTable) return NULL;
     hashTable->capacity = HASH_SIZE;
     hashTable->num_node = 0;
-    if ((hashTable->table = malloc(sizeof(Node*)*hashTable->capacity))==NULL) {
+    if ((hashTable->table = malloc(sizeof(Node *) * hashTable->capacity)) == NULL) {
         free(hashTable->table);
         free(hashTable);
         return NULL;
     }
 
-    for (int i=0; i<hashTable->capacity; i++) {
+    for (int i = 0; i < hashTable->capacity; i++) {
         hashTable->table[i] = NULL;
     }
     return hashTable;
 }
 
 int containsKey(HashTable *table, char *k) {
-    if (table==NULL || k==NULL) return 0;
-    unsigned long index = hash(k)%table->capacity;
+    if (table == NULL || k == NULL) return 0;
+    unsigned long index = hash(k) % table->capacity;
     Node *np = table->table[index];
-    while (np!=NULL) {
+    while (np != NULL) {
         if (!strcmp(np->key, k)) {
             return 1;
         }
@@ -74,10 +73,10 @@ int containsKey(HashTable *table, char *k) {
 }
 
 void *putKeyValue(HashTable *table, char *k, void *v) {
-    if (table==NULL || k==NULL) return NULL;
-    unsigned long index = hash(k)%table->capacity;
+    if (table == NULL || k == NULL) return NULL;
+    unsigned long index = hash(k) % table->capacity;
     Node *np = table->table[index];
-    while (np!=NULL) {
+    while (np != NULL) {
         // if the key exists, update value and return the new value
         if (!strcmp(np->key, k)) {
             np->value = v;
@@ -89,7 +88,7 @@ void *putKeyValue(HashTable *table, char *k, void *v) {
     // if program reaches here, we need to add a new node
     Node *newNode = malloc(sizeof(Node));
     // cannot copy a string into a char pointer that has not been allocated enough space
-    newNode->key = malloc(sizeof(char)*strlen(k));
+    newNode->key = malloc(sizeof(char) * strlen(k));
     strcpy(newNode->key, k);
     newNode->value = v;
     newNode->hash_code = hash(k);
@@ -101,10 +100,10 @@ void *putKeyValue(HashTable *table, char *k, void *v) {
 
 
 void *getValue(HashTable *table, char *k) {
-    if (table==NULL || k==NULL) return NULL;
-    unsigned long index = hash(k)%table->capacity;
+    if (table == NULL || k == NULL) return NULL;
+    unsigned long index = hash(k) % table->capacity;
     Node *np = table->table[index];
-    while (np!=NULL) {
+    while (np != NULL) {
         if (!strcmp(np->key, k)) {
             return np->value;
         }
@@ -115,17 +114,16 @@ void *getValue(HashTable *table, char *k) {
 
 // remove the node specified by key, and return the value
 void *removeKeyValue(HashTable *table, char *k) {
-    if (table==NULL || k==NULL) return NULL;
-    unsigned long index = hash(k)%table->capacity;
+    if (table == NULL || k == NULL) return NULL;
+    unsigned long index = hash(k) % table->capacity;
     Node *np = table->table[index];
     Node *prev_np = NULL;
-    while (np!=NULL) {
+    while (np != NULL) {
         if (!strcmp(np->key, k)) {
             void *value = np->value;
-            if (prev_np==NULL) {
+            if (prev_np == NULL) {
                 table->table[index] = np->next;
-            }
-            else {
+            } else {
                 prev_np->next = np->next;
             }
             free(np); // we add every nodes by malloc
@@ -139,7 +137,7 @@ void *removeKeyValue(HashTable *table, char *k) {
 }
 
 void clearKeyValue(HashTable *table) {
-    for (long i=0; i<table->capacity; i++) {
+    for (long i = 0; i < table->capacity; i++) {
         freeNodeList(table->table[i]);
     }
     table->num_node = 0;
