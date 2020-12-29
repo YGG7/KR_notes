@@ -2,9 +2,10 @@
 #include <string.h>
 #include <ctype.h>
 #include <unistd.h>
-#include "CFeatures/TestOpen.c"
+#include "CFeatures/TestString.c"
+#include "CFeatures/TestStrcpy.c"
 
 int main(int argc, char *argv[]) {
-    testOpen();
+    testCpyCmp();
     return 0;
 }

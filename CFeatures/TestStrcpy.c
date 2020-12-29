@@ -36,11 +36,18 @@ void testCpyCmp() {
     char s1l[6] = "hello";
     char s2[] = "world";
     char s3[] = "language";
-    printf("comparison result (s1, s1l): %d\n", myStrcmp(s1, s3));
+    char *s1p = "hello";
+    char *s4p = "correction";
+    char *s5p = "correction";
+//    printf("comparison result (s1, s1l): %d\n", myStrcmp(s1, s3));
+    printf("comparison result (s1, s1p): %d\n", strcmp(s1, s1p));
+    printf("comparison result (s4p, s5p): %d\n", strcmp(s4p, s5p));
+
 //    myStrcpy(s1, s3);
 //    myStrcpy(s1l, s3);
 //    printf("reassigned s1: %s|\n", s1);
 //    printf("reassigned s1l: %s|\n", s1l);
 //    printf("%d\n", sizeof(s1l));
-//    printCharArray(s1l);
+    printCharArray(s1);
+    printCharArray(s1p);
 }
